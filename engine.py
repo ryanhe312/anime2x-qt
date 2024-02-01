@@ -1,10 +1,8 @@
-import os
+import os, re
 import sys
 
-from PySide6.QtCore import QObject, Signal, QProcess, QUrl, QThread
+from PySide6.QtCore import QObject, Signal, QProcess, QUrl
 from PySide6.QtGui import QDesktopServices
-
-from moviepy.editor import *
 
 def resource_path(*relative_path):
     if getattr(sys, 'frozen', False):
@@ -19,56 +17,15 @@ rife_model_path = resource_path('rife','rife-v4.6')
 realesrgan_path = resource_path('realesrgan','realesrgan-ncnn-vulkan.exe')
 realesrgan_model_path = resource_path('realesrgan','models')
 
-class ReadThread(QThread):
-    done = Signal(str)
-
-    def __init__(self, input_path, frames_path):
-        super().__init__()
-        self.input_path = input_path
-        self.frames_path = frames_path
-
-    def run(self):
-        video = VideoFileClip(self.input_path)
-        fps = video.fps
-        num_frames = int(video.duration * video.fps)
-        print('fps', fps, 'frames', num_frames)
-
-        video.write_images_sequence(os.path.join(self.frames_path,'frame%08d.png'))
-        video.close()
-
-        self.done.emit(f'{fps} {num_frames}')
-
-class WriteThread(QThread):
-    done = Signal(str)
-
-    def __init__(self, input_path, up_path, output_path, fps, form):
-        super().__init__()
-        self.input_path = input_path
-        self.up_path = up_path
-        self.output_path = output_path
-        self.fps = fps
-        self.form = form
-
-    def run(self):
-        video_up = ImageSequenceClip(self.up_path, fps=self.fps)
-        video = VideoFileClip(self.input_path)
-
-        video_up.set_audio(video.audio)
-        if self.form.lower() == 'gif':
-            video_up.write_gif(self.output_path)
-        else:
-            video_up.write_videofile(self.output_path)
-
-        video_up.close()
-        video.close()
-
-        self.done.emit(f'Done')
-
 class Client_Engine(QObject):
     status = Signal(str)
 
     def __init__(self):
         super().__init__()
+        self.process1 = QProcess()
+        self.process1.readyReadStandardError.connect(self.do_read1)
+        self.process1.finished.connect(self.do_step2)
+        self.process1.errorOccurred.connect(self.do_error1)
 
         self.process2 = QProcess()
         self.process2.readyReadStandardError.connect(self.do_read2)
@@ -79,6 +36,11 @@ class Client_Engine(QObject):
         self.process3.readyReadStandardError.connect(self.do_read3)
         self.process3.finished.connect(self.do_step4)
         self.process3.errorOccurred.connect(self.do_error3)
+
+        self.process4 = QProcess()
+        self.process4.readyReadStandardError.connect(self.do_read4)
+        self.process4.finished.connect(self.do_finish)
+        self.process4.errorOccurred.connect(self.do_error4)
         self.param = {'total':0}
 
     def do_generate(self, param):
@@ -111,19 +73,18 @@ class Client_Engine(QObject):
         self.frames_path = os.path.join(self.param['output'], 'frames')
         os.makedirs(self.frames_path, exist_ok=True)
 
-        self.read_thread = ReadThread(self.input_path, self.frames_path)
-        self.read_thread.start()
-        self.read_thread.done.connect(self.do_step2)
+        engine = ffmpeg_path
+        args = [f" -i \"{self.input_path}\" ",
+                f" \"{os.path.join(self.frames_path,'%08d.png')}\" "]
+        self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
+        self.process1.startCommand(f"\"{engine}\""+' '.join(args))
 
-    def do_step2(self, info:str):
+    def do_step2(self):
         """
         Interpolate frames
         """
-        fps, num_frames = info.split()
-        self.fps = float(fps)
-        self.num_frames = int(num_frames)
 
-        self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] " + f"Processing a video with {num_frames} frames and {fps} fps.")
+        self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] " + f"Processing a video with {self.num_frames} frames and {self.fps} fps.")
 
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] " + "Interpolating Frames.")
 
@@ -168,13 +129,23 @@ class Client_Engine(QObject):
         """   
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] " + "Concatenating Frames.") 
 
-        self.write_thread = WriteThread(self.input_path, self.up_path, self.output_path, self.fps * self.param['inter'], self.form)
-        self.write_thread.start()
-        self.write_thread.done.connect(self.do_finish)
+        # ffmpeg -i v.mp4 -i a.wav -c copy -map 0:v:0 -map 1:a:0 new.mp4
 
-    def do_finish(self, info):
+        engine = ffmpeg_path
+        args = [f" -framerate {self.fps * self.param['inter']}"
+                f" -i \"{os.path.join(self.up_path,'%08d.png')}\" ",
+                f" -i \"{self.input_path}\" ",
+                f" -c copy -map 0:v:0 -map 1:a:0 ",
+                f" \"{self.output_path}\" "]
+        self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
+        self.process4.startCommand(f"\"{engine}\""+' '.join(args))
+
+    def do_finish(self):
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Finished with {len(self.param['input'])} left.")
         self.do_generate(self.param)
+
+    def do_error1(self):
+        self.status.emit("[ERROR] Process failed:"+ self.process1.errorString())
 
     def do_error2(self):
         self.status.emit("[ERROR] Process failed:"+ self.process2.errorString())
@@ -182,17 +153,39 @@ class Client_Engine(QObject):
     def do_error3(self):
         self.status.emit("[ERROR] Process failed:"+ self.process3.errorString())
 
+    def do_error4(self):
+        self.status.emit("[ERROR] Process failed:"+ self.process4.errorString())
+
+    def do_read1(self):
+        info = self.process1.readAllStandardError().data().decode().strip()
+        self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] "+info)
+        fps = re.search(r'([0-9]+) fps,' ,info)
+        if fps:
+            self.fps = float(fps.group(1))
+        frame = re.search(r'frame=  ([0-9]+)' ,info)
+        if frame:
+            self.num_frames = int(frame.group(1))
+
     def do_read2(self):
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] "+self.process2.readAllStandardError().data().decode().strip())
 
     def do_read3(self):
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] "+self.process3.readAllStandardError().data().decode().strip())
 
+    def do_read4(self):
+        self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] "+self.process4.readAllStandardError().data().decode().strip())
+
     def do_cancel(self):
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Trying kill process.")
+
+        self.process1.kill()
+        self.process1.terminate()
 
         self.process2.kill()
         self.process2.terminate()
 
         self.process3.kill()
         self.process3.terminate()
+
+        self.process4.kill()
+        self.process4.terminate()

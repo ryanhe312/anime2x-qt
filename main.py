@@ -11,7 +11,7 @@ class Client_View(QMainWindow,Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon(resource_path('logo.ico')))
+        self.setWindowIcon(QIcon(resource_path('icon.ico')))
         self.show()
 
         self.about = QMessageBox(self);
@@ -28,7 +28,7 @@ class Client_View(QMainWindow,Ui_MainWindow):
         self.inputOpen.setFileMode(QFileDialog.ExistingFiles)
         self.inputOpen.setWindowTitle('Select Open Path')
         self.inputOpen.setDirectory(os.getcwd())
-        self.inputOpen.setNameFilter('Video Files(*.mp4 *.avi *.mov *.gif)')
+        self.inputOpen.setNameFilters(['Video Files(*.mp4 *.avi *.mov *.gif)', 'All Files (*.*)'])
 
         self.outputOpen = QFileDialog(self)
         # self.outputOpen.setAcceptMode(QFileDialog.AcceptSave)

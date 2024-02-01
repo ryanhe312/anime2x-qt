@@ -1,4 +1,8 @@
 __pycache__/
 realesrgan/
 rife/
+ffmpeg/
 test/
+build/
+dist/
+*.spec
