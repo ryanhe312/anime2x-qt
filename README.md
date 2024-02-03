@@ -33,13 +33,19 @@ https://github.com/skeeto/vulkan-test/releases/download/1.0.2/vulkan_test.exe
 
 ## 运行/Manual
 
+![Screenshot_ZH](./screenshot_zh.png)
+
 解压后打开 Anime2x.exe 并按照说明进行操作。
 
 (1) 在文件面板中设置你的输入路径和输出路径。
 
 (2) 在配置面板中选择你偏好的参数。（更大的比例需要更长的处理时间和更大的磁盘空间。）
 
-(3) 点击操作面板中的生成按钮，然后等待几分钟来处理。
+(3) 选择转换的格式。“与输入保持一致”则保持输入的文件格式。如果仅转换格式，请选择不放大和不插帧。
+
+(4) 点击操作面板中的生成按钮，然后等待几分钟来处理。
+
+![Screenshot_ZH](./screenshot_en.png)
 
 Open Anime2x.exe after unzipping and follow the instructions.
 
@@ -47,7 +53,9 @@ Open Anime2x.exe after unzipping and follow the instructions.
 
 (2) Select your preferred parameters in Configs Panel. (Larger ratio NEEDS longer time and larger disk space.)
 
-(3) Click generate in Action Panel and wait for several minutes to process.
+(3) Select the output format. "Same as Input" will keep the input file extension. Please select No Upscaling and No Interpolation if you only want to convert the format.
+
+(4) Click generate in Action Panel and wait for several minutes to process.
 
 ## Develop
 
