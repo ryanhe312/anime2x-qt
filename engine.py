@@ -59,7 +59,7 @@ class Client_Engine(QObject):
 
         basename = os.path.basename(self.input_path)
         self.name = basename.split('.')[-2]
-        self.form = basename.split('.')[-1]
+        self.form = basename.split('.')[-1] if param["form"] is None else param["form"]
         output_path = basename[:-len(self.form)-1]+'_anime2x.'+self.form
         self.output_path = os.path.join(param['output'], output_path)
 
@@ -77,7 +77,7 @@ class Client_Engine(QObject):
         engine = ffmpeg_path
         args = [f" -i \"{self.input_path}\" ",
                 f" -pix_fmt pal8 ",
-                f" \"{os.path.join(self.frames_path,'frame%08d.png')}\" "]
+                f" \"{os.path.join(self.frames_path,'%08d.png')}\" "]
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
         self.process1.startCommand(f"\"{engine}\""+' '.join(args))
 
@@ -142,7 +142,7 @@ class Client_Engine(QObject):
             args = [f" -y -framerate {self.fps * self.param['inter']}",
                     f" -i \"{os.path.join(self.up_path,'%08d.png')}\" ",
                     f" -i \"{self.input_path}\" ",
-                    f" -c copy -map 0:v:0 -map 1:a:0 ",
+                    f" -c copy -map 0:v:0 -map 1:a:0? ",
                     f" \"{self.output_path}\" "]
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
         self.process4.startCommand(f"\"{engine}\""+' '.join(args))

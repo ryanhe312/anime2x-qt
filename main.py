@@ -69,7 +69,8 @@ class Client(object):
             'up': 1 if self.view.up_ratio1.isChecked() else ( 2 if self.view.up_ratio2.isChecked() else 4),
             'input':   self.view.InputEdit.text().split(','),
             'output':   self.view.OutputEdit.text(),  
-            'open': self.view.OpenImage.isChecked()      
+            'open': self.view.OpenImage.isChecked(),
+            'form': None if self.view.FormatSame.isChecked() else ( 'gif' if self.view.FormatGIF.isChecked() else ( 'mp4' if self.view.FormatMP4.isChecked() else 'avi' ) )
         }
         # print(param,file=self.log, flush=True)
 

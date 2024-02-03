@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>671</width>
-    <height>562</height>
+    <height>552</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -275,10 +275,10 @@
    <widget class="QGroupBox" name="Actions">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>350</x>
       <y>450</y>
-      <width>321</width>
-      <height>91</height>
+      <width>301</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="title">
@@ -346,7 +346,7 @@
       <x>350</x>
       <y>220</y>
       <width>301</width>
-      <height>321</height>
+      <height>221</height>
      </rect>
     </property>
     <property name="title">
@@ -356,10 +356,78 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>20</y>
+       <y>30</y>
        <width>281</width>
-       <height>291</height>
+       <height>181</height>
       </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>450</y>
+      <width>321</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Output Format</string>
+    </property>
+    <widget class="QRadioButton" name="FormatSame">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>111</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Same as Input</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="FormatMP4">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>50</y>
+       <width>89</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MP4</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="FormatAVI">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>20</y>
+       <width>89</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AVI</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="FormatGIF">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>50</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>GIF (no audio)</string>
      </property>
     </widget>
    </widget>
