@@ -1,4 +1,4 @@
-import os, re
+import os, re, datetime
 import sys
 
 from PySide6.QtCore import QObject, Signal, QProcess, QUrl
@@ -58,6 +58,7 @@ class Client_Engine(QObject):
         self.param['input'] = self.param['input'][1:]
 
         basename = os.path.basename(self.input_path)
+        self.name = basename.split('.')[-2]
         self.form = basename.split('.')[-1]
         output_path = basename[:-len(self.form)-1]+'_anime2x.'+self.form
         self.output_path = os.path.join(param['output'], output_path)
@@ -70,12 +71,13 @@ class Client_Engine(QObject):
         """
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] " + "Extracting Frames.") 
 
-        self.frames_path = os.path.join(self.param['output'], 'frames')
+        self.frames_path = os.path.join(self.param['output'], f'{self.name}_{datetime.datetime.now().strftime("%a_%b_%d_%H_%M")}_frames')
         os.makedirs(self.frames_path, exist_ok=True)
 
         engine = ffmpeg_path
         args = [f" -i \"{self.input_path}\" ",
-                f" \"{os.path.join(self.frames_path,'%08d.png')}\" "]
+                f" -pix_fmt pal8 ",
+                f" \"{os.path.join(self.frames_path,'frame%08d.png')}\" "]
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
         self.process1.startCommand(f"\"{engine}\""+' '.join(args))
 
@@ -83,6 +85,7 @@ class Client_Engine(QObject):
         """
         Interpolate frames
         """
+        self.num_frames = len(os.listdir(self.frames_path))
 
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] " + f"Processing a video with {self.num_frames} frames and {self.fps} fps.")
 
@@ -129,14 +132,18 @@ class Client_Engine(QObject):
         """   
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] " + "Concatenating Frames.") 
 
-        # ffmpeg -i v.mp4 -i a.wav -c copy -map 0:v:0 -map 1:a:0 new.mp4
-
-        engine = ffmpeg_path
-        args = [f" -framerate {self.fps * self.param['inter']}"
-                f" -i \"{os.path.join(self.up_path,'%08d.png')}\" ",
-                f" -i \"{self.input_path}\" ",
-                f" -c copy -map 0:v:0 -map 1:a:0 ",
-                f" \"{self.output_path}\" "]
+        if self.form.lower() == 'gif':
+            engine = ffmpeg_path
+            args = [f" -y -framerate {self.fps * self.param['inter']}",
+                    f" -i \"{os.path.join(self.up_path,'%08d.png')}\" ",
+                    f" \"{self.output_path}\" "]
+        else:
+            engine = ffmpeg_path
+            args = [f" -y -framerate {self.fps * self.param['inter']}",
+                    f" -i \"{os.path.join(self.up_path,'%08d.png')}\" ",
+                    f" -i \"{self.input_path}\" ",
+                    f" -c copy -map 0:v:0 -map 1:a:0 ",
+                    f" \"{self.output_path}\" "]
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
         self.process4.startCommand(f"\"{engine}\""+' '.join(args))
 
@@ -159,12 +166,9 @@ class Client_Engine(QObject):
     def do_read1(self):
         info = self.process1.readAllStandardError().data().decode().strip()
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] "+info)
-        fps = re.search(r'([0-9]+) fps,' ,info)
+        fps = re.search(r'([0-9\.]+) fps,' ,info)
         if fps:
             self.fps = float(fps.group(1))
-        frame = re.search(r'frame=  ([0-9]+)' ,info)
-        if frame:
-            self.num_frames = int(frame.group(1))
 
     def do_read2(self):
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] "+self.process2.readAllStandardError().data().decode().strip())
