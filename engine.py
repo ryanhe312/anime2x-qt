@@ -142,7 +142,7 @@ class Client_Engine(QObject):
             args = [f" -y -framerate {self.fps * self.param['inter']}",
                     f" -i \"{os.path.join(self.up_path,'%08d.png')}\" ",
                     f" -i \"{self.input_path}\" ",
-                    f" -c copy -map 0:v:0 -map 1:a:0? ",
+                    f" -map 0:v:0 -map 1:a:0? ",
                     f" \"{self.output_path}\" "]
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
         self.process4.startCommand(f"\"{engine}\""+' '.join(args))
