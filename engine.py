@@ -76,7 +76,6 @@ class Client_Engine(QObject):
 
         engine = ffmpeg_path
         args = [f" -i \"{self.input_path}\" ",
-                f" -pix_fmt pal8 ",
                 f" \"{os.path.join(self.frames_path,'%08d.png')}\" "]
         self.status.emit(f"[INFO {self.param['total']-len(self.param['input'])}/{self.param['total']}] Running"+f"\"{engine}\""+' '.join(args))
         self.process1.startCommand(f"\"{engine}\""+' '.join(args))
