@@ -153,7 +153,7 @@ class Ui_MainWindow(object):
         self.up_ratio1.setText(QCoreApplication.translate("MainWindow", u"1x Size (No Upscaling)", None))
         self.Introduction.setTitle(QCoreApplication.translate("MainWindow", u"Introduction", None))
         self.description.setText(QCoreApplication.translate("MainWindow", u"This tool allows you to interpolate and upscale your anime video with high quality and also convert the video format.\n"
-"(1) Set your input path and output path in Files Panel. \n"
+"(1) Set your input path and output path in Files Panel. You can also drag and drop files to set paths.\n"
 "(2) Select your preferred parameters in Configs Panel. (Larger ratio NEEDS longer time and larger disk space.)\n"
 "(3) Select the output format. \"Same as Input\" will keep the input file extension. Please select No Upscaling and No Interpolation if you only want to convert the format.\n"
 "(4) Click generate in Action Panel and wait for several minutes to process. ", None))
@@ -170,74 +170,74 @@ class Ui_MainWindow(object):
         self.FormatGIF.setText(QCoreApplication.translate("MainWindow", u"GIF (no audio)", None))
     # retranslateUi
 
-#     def retranslateUi(self, MainWindow):
-#         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Anime2x - 人工智能视频动图放大插帧工具", None))
-#         self.Files.setTitle(QCoreApplication.translate("MainWindow", u"文件", None))
-#         self.OutputPath.setText(QCoreApplication.translate("MainWindow", u"输出路径", None))
-#         self.OutputEdit.setText("")
-#         self.InputPath.setText(QCoreApplication.translate("MainWindow", u"输入路径(可多选)", None))
-#         self.InputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-#         self.OutputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-#         self.Configs.setTitle(QCoreApplication.translate("MainWindow", u"设置", None))
-#         self.Interpolation.setTitle(QCoreApplication.translate("MainWindow", u"插帧", None))
-#         self.inter_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍帧数 (时间长，文件大)", None))
-#         self.inter_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍帧数 (不插帧)", None))
-#         self.inter_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍插帧", None))
-#         self.Upscaling.setTitle(QCoreApplication.translate("MainWindow", u"放大", None))
-#         self.up_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍大小", None))
-#         self.up_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍大小  (时间长，文件大)", None))
-#         self.up_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍大小 (不放大)", None))
-#         self.Introduction.setTitle(QCoreApplication.translate("MainWindow", u"介绍", None))
-#         self.description.setText(QCoreApplication.translate("MainWindow", u"这个工具允许你对动漫视频或者动图进行高质量插帧和提升分辨率，也可以用来转换视频格式。\n"
-# "(1) 在文件面板中设置你的输入路径和输出路径。 \n"
-# "(2) 在配置面板中选择你偏好的参数。更大的比例需要更长的处理时间和更大的磁盘空间。\n"
-# "(3) 选择转换的格式。“与输入保持一致”则保持输入的文件格式。如果仅转换格式，请选择不放大和不插帧。\n"
-# "(4) 点击操作面板中的生成按钮，然后等待几分钟来处理。", None))
-#         self.Actions.setTitle(QCoreApplication.translate("MainWindow", u"操作", None))
-#         self.Generate.setText(QCoreApplication.translate("MainWindow", u"生成", None))
-#         self.Cancel.setText(QCoreApplication.translate("MainWindow", u"取消", None))
-#         self.OpenImage.setText(QCoreApplication.translate("MainWindow", u"生成后打开输出目录", None))
-#         self.About.setText(QCoreApplication.translate("MainWindow", u"关于", None))
-#         self.Logs.setTitle(QCoreApplication.translate("MainWindow", u"日志", None))
-#         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"输出格式", None))
-#         self.FormatSame.setText(QCoreApplication.translate("MainWindow", u"与输入保持一致", None))
-#         self.FormatMP4.setText(QCoreApplication.translate("MainWindow", u"MP4", None))
-#         self.FormatAVI.setText(QCoreApplication.translate("MainWindow", u"AVI", None))
-#         self.FormatGIF.setText(QCoreApplication.translate("MainWindow", u"GIF (无音频)", None))
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Anime2x - 人工智能视频动图放大插帧工具", None))
+        self.Files.setTitle(QCoreApplication.translate("MainWindow", u"文件", None))
+        self.OutputPath.setText(QCoreApplication.translate("MainWindow", u"输出路径", None))
+        self.OutputEdit.setText("")
+        self.InputPath.setText(QCoreApplication.translate("MainWindow", u"输入路径(可多选)", None))
+        self.InputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.OutputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.Configs.setTitle(QCoreApplication.translate("MainWindow", u"设置", None))
+        self.Interpolation.setTitle(QCoreApplication.translate("MainWindow", u"插帧", None))
+        self.inter_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍帧数 (时间长，文件大)", None))
+        self.inter_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍帧数 (不插帧)", None))
+        self.inter_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍插帧", None))
+        self.Upscaling.setTitle(QCoreApplication.translate("MainWindow", u"放大", None))
+        self.up_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍大小", None))
+        self.up_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍大小  (时间长，文件大)", None))
+        self.up_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍大小 (不放大)", None))
+        self.Introduction.setTitle(QCoreApplication.translate("MainWindow", u"介绍", None))
+        self.description.setText(QCoreApplication.translate("MainWindow", u"这个工具允许你对动漫视频或者动图进行高质量插帧和提升分辨率，也可以用来转换视频格式。\n"
+"(1) 在文件面板中设置你的输入路径和输出路径。你可以拖拽文件到窗口来获取路径。 \n"
+"(2) 在配置面板中选择你偏好的参数。更大的比例需要更长的处理时间和更大的磁盘空间。\n"
+"(3) 选择转换的格式。“与输入保持一致”则保持输入的文件格式。如果仅转换格式，请选择不放大和不插帧。\n"
+"(4) 点击操作面板中的生成按钮，然后等待几分钟来处理。", None))
+        self.Actions.setTitle(QCoreApplication.translate("MainWindow", u"操作", None))
+        self.Generate.setText(QCoreApplication.translate("MainWindow", u"生成", None))
+        self.Cancel.setText(QCoreApplication.translate("MainWindow", u"取消", None))
+        self.OpenImage.setText(QCoreApplication.translate("MainWindow", u"生成后打开输出目录", None))
+        self.About.setText(QCoreApplication.translate("MainWindow", u"关于", None))
+        self.Logs.setTitle(QCoreApplication.translate("MainWindow", u"日志", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"输出格式", None))
+        self.FormatSame.setText(QCoreApplication.translate("MainWindow", u"与输入保持一致", None))
+        self.FormatMP4.setText(QCoreApplication.translate("MainWindow", u"MP4", None))
+        self.FormatAVI.setText(QCoreApplication.translate("MainWindow", u"AVI", None))
+        self.FormatGIF.setText(QCoreApplication.translate("MainWindow", u"GIF (无音频)", None))
     # retranslateUi
 
-    # def retranslateUi(self, MainWindow):
-    #     MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Anime2x - 人工知能動画拡大フレーム補間ツール", None))
-    #     self.Files.setTitle(QCoreApplication.translate("MainWindow", u"ファイル", None))
-    #     self.OutputPath.setText(QCoreApplication.translate("MainWindow", u"出力パス", None))
-    #     self.OutputEdit.setText("")
-    #     self.InputPath.setText(QCoreApplication.translate("MainWindow", u"入力パス（複数可能）", None))
-    #     self.InputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-    #     self.OutputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-    #     self.Configs.setTitle(QCoreApplication.translate("MainWindow", u"設定", None))
-    #     self.Interpolation.setTitle(QCoreApplication.translate("MainWindow", u"フレーム補間", None))
-    #     self.inter_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍のフレーム数（時間が長く、ファイルが大きい）", None))
-    #     self.inter_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍のフレーム数（フレーム補間なし）", None))
-    #     self.inter_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍のフレーム数", None))
-    #     self.Upscaling.setTitle(QCoreApplication.translate("MainWindow", u"拡大", None))
-    #     self.up_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍のサイズ", None))
-    #     self.up_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍のサイズ（時間が長く、ファイルが大きい）", None))
-    #     self.up_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍のサイズ（拡大なし）", None))
-    #     self.Introduction.setTitle(QCoreApplication.translate("MainWindow", u"紹介", None))
-    #     self.description.setText(QCoreApplication.translate("MainWindow", u"このツールを使って、アニメビデオや動画を高品質にフレーム補間や解像度を上げることができます。また、ビデオフォーマットの変換にも使用できます。\n"
-    # "(1) ファイルパネルで入力パスと出力パスを設定してください。\n"
-    # "(2) 設定パネルでパラメータを選択してください。より大きな比率は、より長い処理時間とより大きなディスクスペースを必要とします。\n"
-    # "(3) 出力フォーマットを選択してください。“入力と一致する”場合は、入力されたファイルフォーマットを保持します。フォーマットを変換するだけの場合は、拡大なしとフレーム補間なしを選択してください。\n"
-    # "(4) 操作パネルの生成ボタンをクリックして、処理完成まで数分待ってください。", None))
-    #     self.Actions.setTitle(QCoreApplication.translate("MainWindow", u"操作", None))
-    #     self.Generate.setText(QCoreApplication.translate("MainWindow", u"生成", None))
-    #     self.Cancel.setText(QCoreApplication.translate("MainWindow", u"キャンセル", None))
-    #     self.OpenImage.setText(QCoreApplication.translate("MainWindow", u"生成後に出力ディレクトリを開く", None))
-    #     self.About.setText(QCoreApplication.translate("MainWindow", u"製品情報", None))
-    #     self.Logs.setTitle(QCoreApplication.translate("MainWindow", u"ログ", None))
-    #     self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"出力フォーマット", None))
-    #     self.FormatSame.setText(QCoreApplication.translate("MainWindow", u"入力と一致する", None))
-    #     self.FormatMP4.setText(QCoreApplication.translate("MainWindow", u"MP4", None))
-    #     self.FormatAVI.setText(QCoreApplication.translate("MainWindow", u"AVI", None))
-    #     self.FormatGIF.setText(QCoreApplication.translate("MainWindow", u"GIF（オーディオなし）", None))
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Anime2x - 人工知能動画拡大フレーム補間ツール", None))
+        self.Files.setTitle(QCoreApplication.translate("MainWindow", u"ファイル", None))
+        self.OutputPath.setText(QCoreApplication.translate("MainWindow", u"出力パス", None))
+        self.OutputEdit.setText("")
+        self.InputPath.setText(QCoreApplication.translate("MainWindow", u"入力パス（複数可能）", None))
+        self.InputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.OutputButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.Configs.setTitle(QCoreApplication.translate("MainWindow", u"設定", None))
+        self.Interpolation.setTitle(QCoreApplication.translate("MainWindow", u"フレーム補間", None))
+        self.inter_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍のフレーム数（時間が長く、ファイルが大きい）", None))
+        self.inter_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍のフレーム数（フレーム補間なし）", None))
+        self.inter_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍のフレーム数", None))
+        self.Upscaling.setTitle(QCoreApplication.translate("MainWindow", u"拡大", None))
+        self.up_ratio2.setText(QCoreApplication.translate("MainWindow", u"2倍のサイズ", None))
+        self.up_ratio4.setText(QCoreApplication.translate("MainWindow", u"4倍のサイズ（時間が長く、ファイルが大きい）", None))
+        self.up_ratio1.setText(QCoreApplication.translate("MainWindow", u"1倍のサイズ（拡大なし）", None))
+        self.Introduction.setTitle(QCoreApplication.translate("MainWindow", u"紹介", None))
+        self.description.setText(QCoreApplication.translate("MainWindow", u"このツールを使って、アニメビデオや動画を高品質にフレーム補間や解像度を上げることができます。また、ビデオフォーマットの変換にも使用できます。\n"
+    "(1) ファイルパネルで入力パスと出力パスを設定してください。ファイルのドラッグ&ドロップができる。\n"
+    "(2) 設定パネルでパラメータを選択してください。より大きな比率は、より長い処理時間とより大きなディスクスペースを必要とします。\n"
+    "(3) 出力フォーマットを選択してください。“入力と一致する”場合は、入力されたファイルフォーマットを保持します。フォーマットを変換するだけの場合は、拡大なしとフレーム補間なしを選択してください。\n"
+    "(4) 操作パネルの生成ボタンをクリックして、処理完成まで数分待ってください。", None))
+        self.Actions.setTitle(QCoreApplication.translate("MainWindow", u"操作", None))
+        self.Generate.setText(QCoreApplication.translate("MainWindow", u"生成", None))
+        self.Cancel.setText(QCoreApplication.translate("MainWindow", u"キャンセル", None))
+        self.OpenImage.setText(QCoreApplication.translate("MainWindow", u"生成後に出力ディレクトリを開く", None))
+        self.About.setText(QCoreApplication.translate("MainWindow", u"製品情報", None))
+        self.Logs.setTitle(QCoreApplication.translate("MainWindow", u"ログ", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"出力フォーマット", None))
+        self.FormatSame.setText(QCoreApplication.translate("MainWindow", u"入力と一致する", None))
+        self.FormatMP4.setText(QCoreApplication.translate("MainWindow", u"MP4", None))
+        self.FormatAVI.setText(QCoreApplication.translate("MainWindow", u"AVI", None))
+        self.FormatGIF.setText(QCoreApplication.translate("MainWindow", u"GIF（オーディオなし）", None))
     # retranslateUi
